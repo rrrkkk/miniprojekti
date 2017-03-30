@@ -4,4 +4,4 @@ https://j-hipster.herokuapp.com/
 
 [Backlog](https://trello.com/b/2Y6lkuOI/miniprojekti)
 
-[Dokumentaatio](doc/
+[Dokumentaatio](doc/tietokantataulut.jpg)
