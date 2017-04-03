@@ -18,6 +18,7 @@ public class ReferenceController {
     @ResponseBody
     public List<Reference> list() {
         return referenceService.listReferences();
+        //return referenceService.getBibtexString(); TÄÄ!
     }
 
     @RequestMapping(method = RequestMethod.POST)

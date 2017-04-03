@@ -17,12 +17,22 @@ public class Reference extends AbstractPersistable<Long> {
 
     private String type;
 
+    private String identifier;
+    
     public void setType(String type) {
         this.type = type;
     }
 
     public String getType() {
         return type;
+    }
+    
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     public List<Attribute> getAttributes() {
