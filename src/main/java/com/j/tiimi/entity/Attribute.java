@@ -1,5 +1,6 @@
 package com.j.tiimi.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
@@ -9,8 +10,10 @@ import javax.persistence.Id;
 @Entity
 public class Attribute extends AbstractPersistable<Long> {
 
+    @NotBlank
     private String key;
 
+    @NotBlank
     private String value;
 
     public Attribute(){}

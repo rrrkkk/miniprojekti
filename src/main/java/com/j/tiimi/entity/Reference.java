@@ -1,5 +1,6 @@
 package com.j.tiimi.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ public class Reference extends AbstractPersistable<Long> {
     @OneToMany
     private List<Attribute> attributes;
 
+    @NotBlank
     private String type;
 
     private String identifier;
