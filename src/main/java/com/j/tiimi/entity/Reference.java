@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class Reference extends AbstractPersistable<Long> {
 
     @OneToMany
+    @Valid
     private List<Attribute> attributes;
 
     @NotBlank

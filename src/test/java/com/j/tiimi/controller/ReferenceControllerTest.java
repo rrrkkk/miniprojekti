@@ -27,6 +27,9 @@ public class ReferenceControllerTest {
     private MockMvc mockMvc;
     private String jsonBody;
 
+    private String bookJson;
+    private String invalidBookJson;
+
     @Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
@@ -36,6 +39,30 @@ public class ReferenceControllerTest {
                 "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" }\n" +
                 "\t\t]\n" +
                 "}";
+
+        bookJson = "{\n" +
+                "\t\"type\": \"Book\",\n" +
+                "\t\"attributes\": [\n" +
+                "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" },\n" +
+                "\t\t\t{ \"key\": \"title\", \"value\": \"Sepon seikkailut\" },\n" +
+                "\t\t\t{ \"key\": \"publisher\", \"value\": \"ACM\" },\n" +
+                "\t\t\t{ \"key\": \"year\", \"value\": \"1977\" }\n" +
+                "\t\t]\n" +
+                "}";
+
+        invalidBookJson = "{\n" +
+                "\t\"type\": \"Book\",\n" +
+                "\t\"attributes\": [\n" +
+                "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" },\n" +
+                "\t\t\t{ \"key\": \"title\", \"value\": \"Sepon seikkailut\" },\n" +
+                "\t\t\t{ \"key\": \"publisher\", \"value\": \"ACM\" },\n" +
+                "\t\t\t{ \"key\": \"asdf\", \"value\": \"1977\" }\n" +
+                "]}";
+
+    }
+
+    private String wrapToQuotes(String s) {
+        return "\"" + s + "\"";
     }
 
     @Test
@@ -63,6 +90,32 @@ public class ReferenceControllerTest {
             mockMvc.perform(post("/reference")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("INVALID JSON")
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void postSucceedsWithValidBookReference() {
+        try {
+            mockMvc.perform(post("/reference")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(bookJson)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void postFailsWithInvalidBookReference() {
+        try {
+            mockMvc.perform(post("/reference")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(invalidBookJson)
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
         } catch (Exception e) {
