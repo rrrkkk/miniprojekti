@@ -3,7 +3,9 @@ package com.j.tiimi.latex;
 
 import com.j.tiimi.entity.* ;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LatexGenerator {
 
     public String getString(List<Reference> references) {

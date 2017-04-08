@@ -17,6 +17,7 @@ public class ReferenceService {
     ReferenceRepository referenceRepository;
     @Autowired
     AttributeRepository attributeRepository;
+    @Autowired
     LatexGenerator latexgen;
 
     public Reference createReference(Reference reference) {
