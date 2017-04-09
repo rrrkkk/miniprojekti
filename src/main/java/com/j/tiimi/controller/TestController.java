@@ -2,15 +2,15 @@ package com.j.tiimi.controller;
 
 import java.util.ArrayList;
 import com.j.tiimi.entity.*;
-import com.j.tiimi.latex.LatexGenerator;
 import com.j.tiimi.repository.ReferenceRepository;
 import com.j.tiimi.service.ReferenceService;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 
 @Controller
 public class TestController {
@@ -28,10 +28,13 @@ public class TestController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String bibtex() {
+    public String bibtex() throws IOException {
         testInitLatex();
         String latex = referenceService.getBibtexString();
-        System.out.println("latex : \n" + referenceService.getBibtexString());
+        System.out.println("\n\nlatex : \n\n" + latex);
+        System.out.println("----------------------------\n\n");
+        String bibtex = readFile(referenceService.getBibtexFile());
+        System.out.println("bibtex: \n\n" + bibtex);
         return latex;
     }
     
@@ -47,6 +50,18 @@ public class TestController {
         attributes.add(new Attribute().setAttributes("publisher", "Prentice Hall"));
         reference.setAttributes(attributes);
         referenceService.createReference(reference);
+    }
+ 
+    private String readFile(File file) throws IOException {
+        Scanner reader = new Scanner(file);
+        StringBuilder sb = new StringBuilder();
+        
+        while (reader.hasNextLine()) {
+            sb.append(reader.nextLine() + "\n"); //nextLine syö rivinvaihdot >_>
+        }
+        
+        reader.close();
+        return sb.toString();
     }
     
 }

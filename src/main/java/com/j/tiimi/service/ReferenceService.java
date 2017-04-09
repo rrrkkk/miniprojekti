@@ -2,9 +2,10 @@ package com.j.tiimi.service;
 
 import com.j.tiimi.entity.Attribute;
 import com.j.tiimi.entity.Reference;
-import com.j.tiimi.latex.LatexGenerator;
+import com.j.tiimi.latex.BibtexGenerator;
 import com.j.tiimi.repository.AttributeRepository;
 import com.j.tiimi.repository.ReferenceRepository;
+import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ReferenceService {
     @Autowired
     AttributeRepository attributeRepository;
     @Autowired
-    LatexGenerator latexgen;
+    BibtexGenerator bibtexgenerator;
 
     public Reference createReference(Reference reference) {
         List<Attribute> attributes = reference.getAttributes();
@@ -32,6 +33,10 @@ public class ReferenceService {
     }
 
     public String getBibtexString() {
-        return latexgen.getString(referenceRepository.findAll());
+        return bibtexgenerator.getBibtex(referenceRepository.findAll());
+    }
+    
+    public File getBibtexFile() {
+        return bibtexgenerator.getBibtexFile(referenceRepository.findAll());
     }
 }

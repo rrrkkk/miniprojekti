@@ -2,6 +2,9 @@ package com.j.tiimi.controller;
 
 import com.j.tiimi.entity.Reference;
 import com.j.tiimi.service.ReferenceService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,8 +15,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.h2.util.IOUtils;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 
 @RestController
@@ -28,18 +33,26 @@ public class ReferenceController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String bibtex() {
+    public String bibtexText() {
         return referenceService.getBibtexString();
     }
 
-    /* Maybe better way to do it, dunno...
-    @RequestMapping(method = RequestMethod.GET)
-    public HttpEntity<String> bibtex() {
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("MyResponseHeader", "MyValue");
-        return new HttpEntity<>(referenceService.getBibtexString(), responseHeaders);
+    @RequestMapping(value = "/file"/*, method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE*/)
+    public void bibtexFile(HttpSession session, HttpServletResponse response) throws Exception {
+        try {
+            File bibtexfile = referenceService.getBibtexFile();
+            InputStream inputStream = new FileInputStream(bibtexfile);
+            response.setContentType("application/force-download");
+            response.setHeader("Content-Disposition", "attachment; filename=bibtex.txt");
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+            inputStream.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
     }
-    */
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
