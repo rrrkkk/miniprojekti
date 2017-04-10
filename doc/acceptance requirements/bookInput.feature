@@ -4,7 +4,7 @@ Feature: user can save a valid book reference to the system
 		When user inputs id "BA04", author "Beck, Kent and Anders, Cynthia", title "Extreme Programming explained", publisher "Addison-Wesley Professional" and year "2004"
 		Then new reference is added to the system
 
-	Scenario: a book reference is not saved in the system if the id is empty
+	Scenario: a book reference is not saved if the id is empty
 		Given user visits the input form for references and chooses "book" for type
 		When user inputs id "", author "Beck, Kent and Anders, Cynthia", title "Extreme Programming explained", publisher "Addison-Wesley Professional" and year "2004"
 		Then reference is not saved and error message is shown
