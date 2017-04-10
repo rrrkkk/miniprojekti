@@ -43,7 +43,7 @@ public class ReferenceController {
             File bibtexfile = referenceService.getBibtexFile();
             InputStream inputStream = new FileInputStream(bibtexfile);
             response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment; filename=bibtex.txt");
+            response.setHeader("Content-Disposition", "attachment; filename=references.bib");
             IOUtils.copy(inputStream, response.getOutputStream());
             response.flushBuffer();
             inputStream.close();
