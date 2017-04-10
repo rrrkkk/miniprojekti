@@ -65,7 +65,7 @@ public class LatexGeneratorTest {
         StringBuilder sb = new StringBuilder();
 
         while (reader.hasNextLine()) {
-            sb.append(reader.nextLine());
+            sb.append(reader.nextLine() + "\n");
         }
         reader.close();
         return sb.toString();
