@@ -29,7 +29,7 @@ public class TestController {
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String bibtex() throws IOException {
-        testInitLatex();
+        seedReferences();
         String latex = referenceService.getBibtexString();
         System.out.println("\n\nlatex : \n\n" + latex);
         System.out.println("----------------------------\n\n");
@@ -38,20 +38,6 @@ public class TestController {
         return latex;
     }
     
-    //puts references to repo
-    public void testInitLatex() {
-        Reference reference = new Reference();
-        reference.setType("Book");
-        reference.setIdentifier("Martin09");
-        ArrayList<Attribute> attributes = new ArrayList();
-        attributes.add(new Attribute().setAttributes("author", "Martin, Robert"));
-        attributes.add(new Attribute().setAttributes("title", "Clean Code: A Handbook of Agile Software Craftsmanship"));
-        attributes.add(new Attribute().setAttributes("year", "2008"));
-        attributes.add(new Attribute().setAttributes("publisher", "Prentice Hall"));
-        reference.setAttributes(attributes);
-        referenceService.createReference(reference);
-    }
- 
     private String readFile(File file) throws IOException {
         Scanner reader = new Scanner(file);
         StringBuilder sb = new StringBuilder();
@@ -62,6 +48,55 @@ public class TestController {
         
         reader.close();
         return sb.toString();
+    }
+    
+    //puts references to repo
+    private void seedReferences() {
+        Reference reference = new Reference();
+        reference.setType("Book");
+        reference.setIdentifier("Martin09");
+        ArrayList<Attribute> attributes = new ArrayList();
+        attributes.add(new Attribute().setAttributes("author", "Martin, Robert"));
+        attributes.add(new Attribute().setAttributes("title", "Clean Code: A Handbook of Agile Software Craftsmanship"));
+        attributes.add(new Attribute().setAttributes("year", "2008"));
+        attributes.add(new Attribute().setAttributes("publisher", "Prentice Hall"));
+        reference.setAttributes(attributes);
+        referenceService.createReference(reference);
+        
+        reference = new Reference();
+        reference.setType("Article");
+        reference.setIdentifier("fox");
+        attributes = new ArrayList();
+        attributes.add(new Attribute().setAttributes("author", "Fox, Armando and Patterson, David"));
+        attributes.add(new Attribute().setAttributes("title", "Crossing the software education chasm"));
+        attributes.add(new Attribute().setAttributes("journal", "Communications of ACM"));
+        attributes.add(new Attribute().setAttributes("year", "2012"));
+        attributes.add(new Attribute().setAttributes("volume", "55"));
+        attributes.add(new Attribute().setAttributes("address", "New York, NY, USA"));
+        reference.setAttributes(attributes);
+        referenceService.createReference(reference);
+        
+        reference = new Reference();
+        reference.setType("Inproceedings");
+        reference.setIdentifier("Begel_2008");
+        attributes = new ArrayList();
+        attributes.add(new Attribute().setAttributes("author", "Begel, Andrew and Simon, Beth"));
+        attributes.add(new Attribute().setAttributes("title", "Struggles of new college graduates in their first software development job"));
+        attributes.add(new Attribute().setAttributes("year", "2008"));
+        attributes.add(new Attribute().setAttributes("booktitle", "Proceedings of the SIGCSE '08"));
+        reference.setAttributes(attributes);
+        referenceService.createReference(reference);
+        
+        reference = new Reference();
+        reference.setType("Book");
+        reference.setIdentifier("SWEBOK");
+        attributes = new ArrayList();
+        attributes.add(new Attribute().setAttributes("author", "Big, Guy"));
+        attributes.add(new Attribute().setAttributes("title", "Guide to the Software Engineering Body of Knownledge"));
+        attributes.add(new Attribute().setAttributes("year", "2004"));
+        attributes.add(new Attribute().setAttributes("publisher", "IEEE Computer Society"));
+        reference.setAttributes(attributes);
+        referenceService.createReference(reference);
     }
     
 }
