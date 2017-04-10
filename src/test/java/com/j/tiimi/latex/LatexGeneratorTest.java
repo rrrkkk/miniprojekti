@@ -38,8 +38,8 @@ public class LatexGeneratorTest {
         reference.setAttributes(attributes);
         generator = new BibtexGenerator();
 
-        latex = "@book{Martin09,\nauthor = {Martin, Robert},\ntitle = {Clean Code: A Handbook of Agile Software Craftsmanship},\n"
-                + "year = {2008},\npublisher = {Prentice Hall},\n}\n\n";
+        latex = "@book{Martin09,\n\tauthor = {Martin, Robert},\n\ttitle = {Clean Code: A Handbook of Agile Software Craftsmanship},\n\t"
+                + "year = {2008},\n\tpublisher = {Prentice Hall},\n}\n\n";
     }
 
     @Test

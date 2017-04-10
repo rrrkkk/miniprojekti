@@ -20,12 +20,6 @@ public class TestController {
     @Autowired
     private ReferenceService referenceService;
 
-    @RequestMapping("*")
-    @ResponseBody
-    public String home() {
-        return "Hello!";
-    }
-
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public String bibtex() throws IOException {
