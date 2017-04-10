@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,13 +38,16 @@ public class ReferenceController {
         return referenceService.getBibtexString();
     }
 
-    @RequestMapping(value = "/file"/*, method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE*/)
-    public void bibtexFile(HttpSession session, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/file")
+    public void bibtexFile(HttpServletResponse response, @RequestParam(value = "name", required = false) String fileName) throws Exception {
         try {
             File bibtexfile = referenceService.getBibtexFile();
             InputStream inputStream = new FileInputStream(bibtexfile);
             response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment; filename=sigproc.bib");
+
+            if (fileName == null) fileName = "sigproc";
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ".bib");
+
             IOUtils.copy(inputStream, response.getOutputStream());
             response.flushBuffer();
             inputStream.close();

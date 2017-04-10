@@ -11,7 +11,7 @@ public class LatexGenerator {
         String latex = "";
         latex += "@" + reference.getType().toLowerCase() + "{" + reference.getIdentifier() + ",\n";
         for (Attribute attr : reference.getAttributes()) {
-            latex += attr.getKey().toLowerCase() + " = {" + attr.getValue() + "},\n";
+            latex += "\t" + attr.getKey().toLowerCase() + " = {" + attr.getValue() + "},\n";
         }
         latex += "}\n\n";
         return latex;
