@@ -58,7 +58,7 @@ public class ReferenceController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+/*    @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> post(@Valid @RequestBody Reference reference, BindingResult result) {
 
@@ -78,5 +78,11 @@ public class ReferenceController {
         }
 
         return ResponseEntity.ok(referenceService.createReference(reference));
+    }*/
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public Reference post(@RequestBody Reference reference) {
+        return referenceService.createReference(reference);
     }
 }
