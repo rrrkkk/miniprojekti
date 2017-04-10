@@ -7,4 +7,4 @@ Feature: user can download a bibtex-file which has the saved references in a cor
 	Scenario: bibtex-file cannot be downloaded from the system if there are no saved references
 		Given there are no references in the system
 		When user tries to download the references
-		Then no file is given and the system displays error message
+		Then no file is downloaded and the system displays error message
