@@ -58,12 +58,13 @@ public class ReferenceController {
 
     }
 
-/*    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> post(@Valid @RequestBody Reference reference, BindingResult result) {
 
-        if (validators.containsKey(reference.getType().toLowerCase())) {
-            validators.get(reference.getType()).validate(reference, result);
+        String type = reference.getType().toLowerCase();
+        if (validators.containsKey(type)) {
+            validators.get(type).validate(reference, result);
         } else {
             result.reject(reference.getType() + " isn't a valid reference type.");
         }
@@ -78,11 +79,13 @@ public class ReferenceController {
         }
 
         return ResponseEntity.ok(referenceService.createReference(reference));
-    }*/
+    }
 
+    /*
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Reference post(@RequestBody Reference reference) {
         return referenceService.createReference(reference);
     }
+    */
 }

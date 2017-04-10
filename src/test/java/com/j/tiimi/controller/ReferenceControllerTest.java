@@ -61,10 +61,6 @@ public class ReferenceControllerTest {
 
     }
 
-    private String wrapToQuotes(String s) {
-        return "\"" + s + "\"";
-    }
-
     @Test
     public void statusOk() throws Exception {
         mockMvc.perform(get("/reference"))
@@ -72,15 +68,16 @@ public class ReferenceControllerTest {
     }
 
     @Test
-    public void postTest() {
+    public void postTest() throws Exception {
+        // tää on validoinnin jälkeen bad request koska ei kaikkia attribuutteja pyynnössä
         try {
             mockMvc.perform(post("/reference")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonBody)
                     .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
+                    .andExpect(status().isBadRequest());
         } catch (Exception e) {
-            Assert.fail("Fail " + e);
+            Assert.fail("Fail: " + e);
         }
     }
 
@@ -93,7 +90,7 @@ public class ReferenceControllerTest {
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
         } catch (Exception e) {
-            Assert.fail("Fail " + e);
+            Assert.fail("Fail: " + e);
         }
     }
 
@@ -106,11 +103,11 @@ public class ReferenceControllerTest {
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         } catch (Exception e) {
-            Assert.fail("Fail " + e);
+            Assert.fail("Fail: " + e);
         }
     }
 
-/*    @Test
+    @Test
     public void postFailsWithInvalidBookReference() {
         try {
             mockMvc.perform(post("/reference")
@@ -121,7 +118,7 @@ public class ReferenceControllerTest {
         } catch (Exception e) {
             Assert.fail("Fail " + e);
         }
-    }*/
+    }
 
     public Reference generateReference() {
         Reference reference = new Reference();
