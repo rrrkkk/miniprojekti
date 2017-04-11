@@ -59,11 +59,11 @@ public class ReferenceController {
     @ResponseBody
     public ResponseEntity<?> post(@Valid @RequestBody Reference reference, BindingResult result) {
 
-        String type = reference.getType().toLowerCase();
-        if (validators.containsKey(type)) {
-            validators.get(type).validate(reference, result);
+        String type = reference.getType();
+        if (type != null && validators.containsKey(type.toLowerCase())) {
+            validators.get(type.toLowerCase()).validate(reference, result);
         } else {
-            result.reject(reference.getType() + " isn't a valid reference type.");
+            result.reject(type + " isn't a valid reference type.");
         }
 
         if (result.hasErrors()) {
