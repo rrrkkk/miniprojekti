@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <body>
 
+<div th:fragment="form">
+    <h2>Add article reference</h2>
+
+    <form id="article-form" onsubmit="submitArticleForm()">
+        <label>Identifier</label>
+        <input type="text" name="identifier" id="identifier"/>
+
+        <label>Author</label>
+        <input type="text" name="author" id="author"/>
+
+        <label>Title</label>
+        <input type="text" name="title" id="title"/>
+
+        <label>Year</label>
+        <input type="text" name="year" id="year"/>
+
+        <label>Volume</label>
+        <input type="text" name="volume" id="volume"/>
+
+        <label>Juornal</label>
+        <input type="text" name="journal" id="journal"/>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+
+        function submitArticleForm() {
+            var formData = buildJSONRequest();
+
+            $.ajax({
+                type: 'POST',
+                url: '/reference',
+                data: formData,
+                contentType: 'application/json'
+            });
+        }
+
+        function buildJSONRequest() {
+            var body = {
+                type: 'article',
+                identifier: getInputValue('identifier'),
+                attributes: [
+                    {key: "author", value: getInputValue('author')},
+                    {key: "title", value: getInputValue('title')},
+                    {key: "volume", value: getInputValue('volume')},
+                    {key: "year", value: getInputValue('year')},
+                    {key: "journal", value: getInputValue('journal')}
+                ]
+            };
+
+            return JSON.stringify(body);
+        }
+
+        function getInputValue(id) {
+            return $('#article-form > #' + id).val();
+        }
+
+    </script>
+</div>
+
 </body>
+
 </html>

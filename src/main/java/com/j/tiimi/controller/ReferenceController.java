@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.h2.util.IOUtils;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 
 @RestController
@@ -80,12 +77,4 @@ public class ReferenceController {
 
         return ResponseEntity.ok(referenceService.createReference(reference));
     }
-
-    /*
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public Reference post(@RequestBody Reference reference) {
-        return referenceService.createReference(reference);
-    }
-    */
 }
