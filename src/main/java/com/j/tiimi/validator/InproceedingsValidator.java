@@ -32,11 +32,11 @@ public class InproceedingsValidator extends ReferenceValidator {
     private static final Map<String, String> aliases = new HashMap<>();
 
     public InproceedingsValidator() {
-       super.setOptionalKeys(optionalKeys);
-       super.setRequiredKeys(requiredKeys);
+        super.setOptionalKeys(optionalKeys);
+        super.setRequiredKeys(requiredKeys);
 
-       aliases.put("NUMBER", "VOLUME");
-
+        aliases.put("NUMBER", "VOLUME");
+        super.setAliases(aliases);
     }
 
 }
