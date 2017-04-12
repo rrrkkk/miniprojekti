@@ -43,4 +43,6 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile 'info.cukes:cucumber-java:1.2.5'
 	testCompile 'info.cukes:cucumber-junit:1.2.5'
+	compile 'org.seleniumhq.selenium:selenium-java:2.41.0'
+	compile 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.41.0'
 }
