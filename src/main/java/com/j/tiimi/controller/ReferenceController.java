@@ -1,6 +1,7 @@
 package com.j.tiimi.controller;
 
 import com.j.tiimi.entity.Reference;
+import com.j.tiimi.repository.ReferenceRepository;
 import com.j.tiimi.service.ReferenceService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +24,9 @@ import org.springframework.http.MediaType;
 @RequestMapping("reference")
 public class ReferenceController {
 
+    @Autowired
+    ReferenceRepository referenceRepository;
+    
     @Autowired
     ReferenceService referenceService;
 
@@ -55,26 +59,31 @@ public class ReferenceController {
 
     }
 
+//    @RequestMapping(method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseEntity<?> post(@Valid @RequestBody Reference reference, BindingResult result) {
+//
+//        String type = reference.getType();
+//        if (type != null && validators.containsKey(type.toLowerCase())) {
+//            validators.get(type.toLowerCase()).validate(reference, result);
+//        } else {
+//            result.reject(type + " isn't a valid reference type.");
+//        }
+//
+//        if (result.hasErrors()) {
+//            // tää on vaan esimerkki.
+//            List<String> errors = result.getAllErrors()
+//                    .stream()
+//                    .map(e -> e.getCode())
+//                    .collect(Collectors.toList());
+//            return ResponseEntity.badRequest().body(errors);
+//        }
+//        return ResponseEntity.ok(referenceService.createReference(reference));
+//    }
+    
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> post(@Valid @RequestBody Reference reference, BindingResult result) {
-
-        String type = reference.getType();
-        if (type != null && validators.containsKey(type.toLowerCase())) {
-            validators.get(type.toLowerCase()).validate(reference, result);
-        } else {
-            result.reject(type + " isn't a valid reference type.");
-        }
-
-        if (result.hasErrors()) {
-            // tää on vaan esimerkki.
-            List<String> errors = result.getAllErrors()
-                    .stream()
-                    .map(e -> e.getCode())
-                    .collect(Collectors.toList());
-            return ResponseEntity.badRequest().body(errors);
-        }
-
-        return ResponseEntity.ok(referenceService.createReference(reference));
+    public Reference post(@RequestBody Reference reference) {
+        return referenceService.createReference(reference);
     }
 }

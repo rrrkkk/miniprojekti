@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-
+    
 <div th:fragment="form">
     <h2>Add book reference</h2>
 
@@ -48,7 +48,8 @@
                 type: 'POST',
                 url: '/reference',
                 data: formData,
-                contentType: 'application/json'
+                contentType: 'application/json',
+                error: function(error) {console.log(error)}
             });
         }
 

@@ -11,9 +11,9 @@ public class HomeContoller {
     // Kesken
 
     @RequestMapping("/")
-    @ResponseBody
-    public String hello() {
-        return "Hello!";
+  //  @ResponseBody
+    public String index() {
+        return "index";
     }
 
     @RequestMapping("/book")
