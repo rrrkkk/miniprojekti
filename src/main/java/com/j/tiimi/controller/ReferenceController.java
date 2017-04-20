@@ -6,6 +6,7 @@ import com.j.tiimi.service.ReferenceService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,12 @@ public class ReferenceController {
         return referenceService.getBibtexString();
     }
 
+    @RequestMapping(value = "/list"/*, produces = MediaType.TEXT_PLAIN_VALUE*/)
+    @ResponseBody
+    public String listReferences() {
+        return referenceService.getReferenceJSON();
+    }
+    
     @RequestMapping(value = "/file")
     public void bibtexFile(HttpServletResponse response, @RequestParam(value = "name", required = false) String fileName) throws Exception {
         try {
