@@ -1,4 +1,4 @@
-[Generointi](https://github.com/J-tiimi/miniprojekti/blob/master/doc/acceptance%20requirements/bibtexGeneration.feature)  
-[BookInput](https://github.com/J-tiimi/miniprojekti/blob/master/doc/acceptance%20requirements/bookInput.feature)  
-[ArticleInput](https://github.com/J-tiimi/miniprojekti/blob/master/doc/acceptance%20requirements/articleInput.feature)  
-[InproceedingsInput](https://github.com/J-tiimi/miniprojekti/blob/master/doc/acceptance%20requirements/inproceedingsInput.feature)  
+[Generointi](https://github.com/J-tiimi/miniprojekti/blob/master/src/test/resources/com/j/tiimi/bibtexGeneration.feature)  
+[BookInput](https://github.com/J-tiimi/miniprojekti/blob/master/src/test/resources/com/j/tiimi/bookInput.feature)  
+[ArticleInput](https://github.com/J-tiimi/miniprojekti/blob/master/src/test/resources/com/j/tiimi/articleInput.feature)  
+[InproceedingsInput](https://github.com/J-tiimi/miniprojekti/blob/master/src/test/resources/com/j/tiimi/inproceedingsInput.feature)  
