@@ -1,5 +1,6 @@
 package com.j.tiimi.controller;
 
+import com.google.gson.Gson;
 import com.j.tiimi.entity.Attribute;
 import com.j.tiimi.entity.Reference;
 import org.junit.Assert;
@@ -14,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,41 +29,22 @@ public class ReferenceControllerTest {
     WebApplicationContext webAppContext;
 
     private MockMvc mockMvc;
-    private String jsonBody;
-
+    private Gson gson;
     private String bookJson;
     private String invalidBookJson;
 
     @Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext).build();
-        jsonBody = "{\n" +
-                "\t\"type\": \"Book\",\n" +
-                "\t\"attributes\": [\n" +
-                "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" }\n" +
-                "\t\t]\n" +
-                "}";
+        gson = new Gson();
 
-        bookJson = "{\n" +
-                "\t\"type\": \"Book\",\n" +
-                "\t\"attributes\": [\n" +
-                "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" },\n" +
-                "\t\t\t{ \"key\": \"title\", \"value\": \"Sepon seikkailut\" },\n" +
-                "\t\t\t{ \"key\": \"publisher\", \"value\": \"ACM\" },\n" +
-                "\t\t\t{ \"key\": \"year\", \"value\": \"1977\" }\n" +
-                "\t\t]\n" +
-                "}";
-
-        invalidBookJson = "{\n" +
-                "\t\"type\": \"Book\",\n" +
-                "\t\"attributes\": [\n" +
-                "\t\t\t{ \"key\": \"author\", \"value\": \"Seppo\" },\n" +
-                "\t\t\t{ \"key\": \"title\", \"value\": \"Sepon seikkailut\" },\n" +
-                "\t\t\t{ \"key\": \"publisher\", \"value\": \"ACM\" },\n" +
-                "\t\t\t{ \"key\": \"asdf\", \"value\": \"1977\" }\n" +
-                "]}";
-
+        bookJson = gson.toJson(generateBookReference(
+                "Seppo", "Sepon Seikkaulut", "ACM", "1977", "SS1977"));
+        invalidBookJson = gson.toJson(generateBookReference(
+                "Seppo", "Sepon Seikkaulut", "ACM", "", ""));
     }
+
+    // TODO Testaus incopreecedings ja article tyypeille
 
     @Test
     public void statusOk() throws Exception {
@@ -68,25 +53,11 @@ public class ReferenceControllerTest {
     }
 
     @Test
-    public void postTest() throws Exception {
-        // tää on validoinnin jälkeen bad request koska ei kaikkia attribuutteja pyynnössä
+    public void postFailsWithNoJsonBody() {
         try {
             mockMvc.perform(post("/reference")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(jsonBody)
-                    .accept(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isBadRequest());
-        } catch (Exception e) {
-            Assert.fail("Fail: " + e);
-        }
-    }
-
-    @Test
-    public void postFailsWithWrongJson() {
-        try {
-            mockMvc.perform(post("/reference")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("INVALID JSON")
+                    .content("")
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
         } catch (Exception e) {
@@ -120,14 +91,13 @@ public class ReferenceControllerTest {
         }
     }
 
-    public Reference generateReference() {
-        Reference reference = new Reference();
-        reference.setType("Book");
-        Attribute attribute = new Attribute();
-        attribute.setKey("Author");
-        attribute.setValue("Lollero Pallero");
-        reference.addAttribute(attribute);
+    public Reference generateBookReference(String... values) {
+        List<Attribute> attributes = new ArrayList<>();
+        attributes.add(new Attribute("author", values[0]));
+        attributes.add(new Attribute("title", values[1]));
+        attributes.add(new Attribute("publisher", values[2]));
+        attributes.add(new Attribute("year", values[3]));
 
-        return reference;
+        return new Reference("Book", values[4], attributes);
     }
 }

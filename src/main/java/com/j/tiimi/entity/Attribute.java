@@ -18,6 +18,11 @@ public class Attribute extends AbstractPersistable<Long> {
 
     public Attribute(){}
 
+    public Attribute (String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+
     //for testing purposes REDO jos jaksaa
     public Attribute setAttributes(String key, String value) {
         this.key = key;

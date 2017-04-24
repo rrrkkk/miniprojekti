@@ -4,72 +4,43 @@
 
 <body>
 
-<div th:fragment="form">
-    <h2>Add inproceedings reference</h2>
+<a href="/">Home</a>
+<h2>Add inproceedings reference</h2>
 
-    <form id="form" onsubmit="submitInproceedingsForm()">
-        <div>
-            <label>Identifier</label>
-            <input type="text" name="identifier" id="identifier"/>
-        </div>
+<form id="form" onsubmit="submitInproceedingsForm()" method="post">
+    <div>
+        <label>Identifier</label>
+        <input type="text" name="identifier" id="identifier"/>
+    </div>
 
-        <div>
-            <label>Author</label>
-            <input type="text" name="author" id="author"/>
-        </div>
+    <div>
+        <label>Author</label>
+        <input type="text" name="author" id="author"/>
+    </div>
 
-        <div>
-            <label>Title</label>
-            <input type="text" name="title" id="title"/>
-        </div>
+    <div>
+        <label>Title</label>
+        <input type="text" name="title" id="title"/>
+    </div>
 
-        <div>
-            <label>Year</label>
-            <input type="text" name="year" id="year"/>
-        </div>
-        
-        <div>
-            <label>Book title</label>
-            <input type="text" name="booktitle" id="booktitle"/>
-        </div>
+    <div>
+        <label>Year</label>
+        <input type="text" name="year" id="year"/>
+    </div>
 
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+    <div>
+        <label>Book title</label>
+        <input type="text" name="booktitle" id="booktitle"/>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
 
-        function submitInproceedingsForm() {
-            var formData = buildJSONRequest();
-
-            $.ajax({
-                type: 'POST',
-                url: '/reference',
-                data: formData,
-                contentType: 'application/json'
-            });
-        }
-
-        function buildJSONRequest() {
-            var body = {
-                type: 'inproceedings',
-                identifier: $('#identifier').val(),
-                attributes: [
-                    {key: "author", value: $('#author').val()},
-                    {key: "title", value: $('#title').val()},
-                    {key: "booktitle", value: $('#booktitle').val()},
-                    {key: "year", value: $('#year').val()}
-                ]
-            };
-
-            return JSON.stringify(body);
-        }
-
-    </script>
-</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="js/post.js"></script>
+<script src="js/requests.js"></script>
 
 </body>
-
 </html>

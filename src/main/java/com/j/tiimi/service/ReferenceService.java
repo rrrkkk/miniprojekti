@@ -20,8 +20,6 @@ public class ReferenceService {
     AttributeRepository attributeRepository;
     @Autowired
     BibtexGenerator bibtexgenerator;
-    @Autowired
-    ReferenceJSONGenerator jsongenerator;
 
     public Reference createReference(Reference reference) {
         List<Attribute> attributes = reference.getAttributes();
@@ -32,10 +30,6 @@ public class ReferenceService {
 
     public List<Reference> listReferences() {
         return referenceRepository.findAll();
-    }
-    
-    public String getReferenceJSON() {
-        return jsongenerator.writeListToJsonArray(listReferences());
     }
     
     public String getBibtexString() {

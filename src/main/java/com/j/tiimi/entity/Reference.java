@@ -22,6 +22,15 @@ public class Reference extends AbstractPersistable<Long> {
     private String type;
 
     private String identifier;
+
+    public Reference() {
+    }
+
+    public Reference (String type, String identifier, List<Attribute> attributes) {
+        this.type = type;
+        this.identifier = identifier;
+        this.attributes = attributes;
+    }
     
     public void setType(String type) {
         this.type = type;
