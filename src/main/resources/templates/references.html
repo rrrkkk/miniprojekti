@@ -25,20 +25,27 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 
-    $.get('/reference/list', function (response) {
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/reference/list',
+            contentType: 'application/json',
+            success: renderResponse
+        });
+    });
 
+    function renderResponse(response) {
         response.map(function (item) {
 
             $('.list-group').append('<li id="' + item.id + '" class="list-group-item"></li>');
             $('#' + item.id).append('<h4 class="list-group-heading">' + item.type + ' | ' + item.identifier + '</h4>');
 
-            item.attributes.map((function(attribute) {
+            item.attributes.map((function (attribute) {
                 $('#' + item.id).append('<p>' + attribute.key + ' : ' + attribute.value + '</p>');
             }));
 
         });
-
-    });
+    }
 
 </script>
 </body>
