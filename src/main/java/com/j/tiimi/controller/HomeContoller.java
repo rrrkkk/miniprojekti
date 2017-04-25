@@ -27,4 +27,8 @@ public class HomeContoller {
         return "inproceedings-form";
     }
 
+    @RequestMapping("/list")
+    public String references() {
+        return "references";
+    }
 }

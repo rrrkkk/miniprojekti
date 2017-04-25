@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/">Home</a>
+
+    <h2>References</h2>
+
+    <ul class="list-group"></ul>
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+    $.get('/reference/list', function (response) {
+
+        response.map(function (item) {
+
+            $('.list-group').append('<li id="' + item.id + '" class="list-group-item"></li>');
+            $('#' + item.id).append('<h4 class="list-group-heading">' + item.type + ' | ' + item.identifier + '</h4>');
+
+            item.attributes.map((function(attribute) {
+                $('#' + item.id).append('<p>' + attribute.key + ' : ' + attribute.value + '</p>');
+            }));
+
+        });
+
+    });
+
+</script>
+</body>
+</html>
