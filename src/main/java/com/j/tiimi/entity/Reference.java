@@ -18,9 +18,10 @@ public class Reference extends AbstractPersistable<Long> {
     @Valid
     private List<Attribute> attributes;
 
-    @NotBlank
+    @NotBlank(message = "Type is required.")
     private String type;
 
+    @NotBlank(message = "Identifier can not be empty.")
     private String identifier;
 
     public Reference() {
