@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <meta charset="UTF-8"></meta>
@@ -23,6 +23,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -36,14 +37,24 @@
 
     function renderResponse(response) {
         response.map(function (item) {
+            var id = _.escape(item.id);
+            var type = _.escape(item.type);
+            var identifier = _.escape(item.identifier);
 
-            $('.list-group').append('<li id="' + item.id + '" class="list-group-item"></li>');
-            $('#' + item.id).append('<h4 class="list-group-heading">' + item.type + ' | ' + item.identifier + '</h4>');
+            var liElement = '<li id="' + id +'" class="list-group-item"></li>';
+            var heading = '<h4 class="list-group-heading">' + type + ' | ' + identifier + '</h4>';
+
+            $('.list-group').append(liElement);
+            $('#' + id).append(heading);
 
             item.attributes.map((function (attribute) {
-                $('#' + item.id).append('<p>' + attribute.key + ' : ' + attribute.value + '</p>');
-            }));
+                var key = _.escape(attribute.key);
+                var value = _.escape(attribute.value);
 
+                var attributes = '<p>' + key + ' : ' + value + '</p>';
+
+                $('#' + id).append(attributes);
+            }));
         });
     }
 
