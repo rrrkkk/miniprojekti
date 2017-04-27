@@ -91,6 +91,17 @@ public class TestController {
         attributes.add(new Attribute().setAttributes("publisher", "IEEE Computer Society"));
         reference.setAttributes(attributes);
         referenceService.createReference(reference);
+        
+        reference = new Reference();
+        reference.setType("Book");
+        reference.setIdentifier("KR");
+        attributes = new ArrayList();
+        attributes.add(new Attribute().setAttributes("author", "Kernighan, Brian and Ritchie, Dennis"));
+        attributes.add(new Attribute().setAttributes("title", "The C Programming Language"));
+        attributes.add(new Attribute().setAttributes("year", "1978"));
+        attributes.add(new Attribute().setAttributes("publisher", "Prentice Hall"));
+        reference.setAttributes(attributes);
+        referenceService.createReference(reference);
     }
     
 }
